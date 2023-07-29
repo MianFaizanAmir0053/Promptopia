@@ -109,7 +109,7 @@ export const Nav = () => {
                   className="mt-5 black_btn w-full"
                   type="button"
                   onClick={() => {
-                    toggleDropdown(() => false);
+                    setToggleDropdown(() => false);
                     Cookies.remove("userId");
                     signOut()
                       .then(() => router.push("/"))

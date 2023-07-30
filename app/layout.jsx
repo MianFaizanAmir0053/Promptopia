@@ -1,30 +1,30 @@
-import {Nav} from '@components/Nav'
-import {Provider} from '@components/Provider'
-import '@styles/globals.css'
-import {Inter} from 'next/font/google'
+import { Nav } from "@components/Nav";
+import { Provider } from "@components/Provider";
+import "@styles/globals.css";
+import { Inter } from "next/font/google";
 
-const inter = Inter({subsets: ['latin']})
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: 'Promptopia',
-  description: 'Discover & Share AI Prompts',
-}
+  title: "Promptopia",
+  description: "Discover & Share AI Prompts",
+};
 
-export default function RootLayout({children}) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body suppressHydrationWarning={true} className={inter.className}>
         <Provider>
-          <div className='main'>
-            <div className='gradient' />
+          <div className="main">
+            <div className="gradient" />
           </div>
 
-          <main className='app'>
+          <main className="app">
             <Nav />
             {children}
           </main>
         </Provider>
       </body>
     </html>
-  )
+  );
 }

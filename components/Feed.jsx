@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { PromptCard } from "./PromptCard";
+import Image from "next/image";
+import Cookies from "js-cookie";
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
@@ -17,8 +19,29 @@ const PromptCardList = ({ data, handleTagClick }) => {
   );
 };
 
+const UserGridList = ({ data }) => {
+  return (
+    <div className="mt-16">
+      <h1 className="font-bold text-2xl underline py-2 text-center">All Users</h1>
+      {data.map((user) => (
+        <div key={user._id} className="grid grid-cols-3 gap-2">
+
+
+          <Image width={40} className="rounded-full my-3" height={40} src={user.image} alt={user.username} />
+
+          <div className=" col-span-2 space-x-8 flex items-center">
+            <h3 className="font-bold">{user.username}</h3>
+            <p className="text-gray-600">{user.email}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export const Feed = () => {
   const [searchText, setSearchText] = useState("");
+  const [users, setUsers] = useState([]);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -30,10 +53,23 @@ export const Feed = () => {
     fetchPosts();
   }, []);
 
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const res = await fetch("/api/users");
+      const data = await res.json();
+      setUsers(data);
+    };
+    fetchUsers();
+  }, []);
+
+
+
   const handleSearchChange = (e) => {
     e.preventDefault();
     setSearchText(e.target.value);
   };
+
+
 
   return (
     <section className="feed">
@@ -50,6 +86,9 @@ export const Feed = () => {
           className="search_input peer"
         />
       </form>
+      {
+        Cookies.get("isAdmin") && <UserGridList data={users} />
+      }
       <PromptCardList
         data={posts?.filter((post) => {
           if (searchText === "") {

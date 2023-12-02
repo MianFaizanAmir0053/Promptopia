@@ -11,6 +11,7 @@ export default function Home() {
         Promptopia is an open-source AI prompting tool for modern world to
         discover, create and share creative prompts
       </p>
+      <div className="mr-3 text-black text-xl">See all users</div>
       <Feed />
     </section>
   );

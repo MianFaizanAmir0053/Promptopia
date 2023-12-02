@@ -67,6 +67,25 @@ export const Nav = () => {
           <p className="logo_text">Promptopia</p>
         </Link>
         <div className="sm:flex hidden">
+          {
+            Cookies.get("isAdmin") ? (
+              <button onClick={() => {
+                Cookies.remove("isAdmin");
+                signIn(
+                  providers.google.id,
+                )
+              }} className="black_btn mr-3">
+                Become Guest
+              </button>
+            ) : <button onClick={() => {
+              Cookies.set("isAdmin", "true", { expires: 1, path: "/" });
+              signIn(
+                providers.google.id,
+              )
+              console.log(providers.google.id);
+            }} type="button" className="outline_btn mr-3">Become Admin</button>
+          }
+
           {session?.user ? (
             <div className="flex gap-3 md:gap-5">
               <Link href="/create-prompt" className="black_btn">
@@ -74,6 +93,8 @@ export const Nav = () => {
               </Link>
               <button
                 onClick={() => {
+                  type = "button"
+                  className = "outline_btn"
                   Cookies.remove("userId");
                   signOut()
                     .then(() => router.push("/"))

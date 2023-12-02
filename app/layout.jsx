@@ -1,7 +1,9 @@
 import { Nav } from "@components/Nav";
 import { Provider } from "@components/Provider";
+import '@radix-ui/themes/styles.css';
 import "@styles/globals.css";
 import { Inter } from "next/font/google";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
